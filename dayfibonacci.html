@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let n = parseInt(prompt("nhập số luợng phân tử Fibonacci cần in:"));
+    let n1 =0, n2 = 1;
+    let count = 0;
+    let n4 = "";
+
+    while (count < n){
+        n4 += n1 + " " + "<br>";
+        let next = n1 + n2;
+        n1 = n2;
+        n2 = next;
+        count++;
+    }
+
+    document.write("Dãy Fibonacci: " + n4);
+</script>
+</body>
+</html>
