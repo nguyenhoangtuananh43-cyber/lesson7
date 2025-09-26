@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h2>Từ điển anh - việt </h2>
+<label for = "word">Nhập từ tiếng anh </label>
+<input type = "text" id = "word" placeholder = "ví dụ : apple">
+<button onclick="translateword()">Dịch</button>
+<p id = "result"></p>
+<script>
+    let eng = ["apple", "banana", "cat", "dog", "red", "green"];
+    let vie = ["quả táo", "quả chuối", "con mèo", "con chó", "màu đỏ", "màu xanh"];
+    function translateword() {
+        let input = document.getElementById("word").value.toLowerCase();
+        let index = eng.indexOf(input);
+        let resultText;
+        if (index !== -1) {
+            resultText = "Nghĩa tiếng việt : " + vie[index];
+        } else {
+            resultText = "Không tìm thấy";
+        }
+        document.getElementById("result").textContent = resultText;
+    }
+</script>
+</body>
+</html>
