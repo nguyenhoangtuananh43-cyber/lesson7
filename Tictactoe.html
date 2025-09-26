@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h2>Trò chơi cờ caro</h2>
+<pre id="board"></pre>
+<button onclick="play()">Đánh cờ</button>
+
+<script>
+    let size = 10;
+    let board = [];
+    for (let i = 0; i < size; i++) {
+        board[i] = [];
+        for (let j = 0; j < size; j++) {
+            board[i][j] = ".";
+        }
+    }
+
+    let turn = "X";
+
+    function printBoard() {
+        let str = "";
+        for (let i = 0; i < size; i++) {
+            for (let j = 0; j < size; j++) {
+                str += board[i][j] + " ";
+            }
+            str += "\n";
+        }
+        document.getElementById("board").innerText = str;
+    }
+
+    function play() {
+        let row = parseInt(prompt("Nhập dòng (0-" + (size - 1) + "):"));
+        let col = parseInt(prompt("Nhập cột (0-" + (size - 1) + "):"));
+
+        if (board[row][col] === ".") {
+            board[row][col] = turn; // đánh dấu
+            turn = (turn === "X") ? "O" : "X"; // đổi lượt
+        } else {
+            alert("Ô này đã có rồi!");
+        }
+
+        printBoard();
+    }
+
+    // Hiển thị bàn cờ lúc đầu
+    printBoard();
+</script>
+</body>
+</html>
