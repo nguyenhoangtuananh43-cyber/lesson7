@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h3>Faking Textarea on Typing</h3>
+<textarea id="fakeBox" rows="5" cols="40"></textarea>
+
+<script>
+    // Chuỗi cố định sẽ hiện ra
+    let fixedText = "Xin chào! Một đứa ngốc đang xem ! :)) .";
+    let index = 0;
+
+    function fakeTyping() {
+        // Nếu chưa hết chuỗi thì thêm ký tự tiếp theo
+        if (index < fixedText.length) {
+            document.getElementById("fakeBox").value += fixedText.charAt(index);
+            index++;
+        }
+    }
+
+    // Khi người dùng gõ phím bất kỳ
+    document.getElementById("fakeBox").onkeydown = function(event) {
+        event.preventDefault(); // chặn không cho gõ thật
+        fakeTyping();           // gọi hàm để hiển thị ký tự tiếp theo
+    };
+</script>
+</body>
+</html>
