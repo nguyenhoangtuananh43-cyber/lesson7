@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sản phẩm</title>
+    <style>
+        form {
+            background-color: #efefef;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        button {
+            background-color: green;
+            color: white;
+            border: 1px solid green;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #efefef;
+        }
+    </style>
+</head>
+<body>
+<h1>Add new product</h1>
+<form action="" onsubmit="addProduct(); return false;">
+    <input type="text" name="productName" id="productName">
+    <button type="submit">Add</button>
+</form>
+<h2>Display all product</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Product Name</th>
+        <th colspan="2" style="text-align: right"><span id="total">0</span> products</th>
+    </tr>
+    </thead>
+    <tbody id="products"></tbody>
+</table>
+
+<script>
+    const products = ['Sony Xperia', 'Samsung Galaxy'];
+
+    function displayAllProducts() {
+        document.getElementById('total').innerText = products.length;
+        let html = '';
+        document.getElementById('products').innerHTML = '';
+        for (let i = 0; i < products.length; i++) {
+            html += `<tr>
+                    <td>${products[i]}</td>
+                    <td><button type="button" onclick="editProduct(${i})">Edit</button></td>
+                    <td><button type="button" onclick="deleteProduct(${i})">Delete</button></td>
+                </tr>`;
+        }
+        document.getElementById('products').innerHTML = html;
+    }
+    displayAllProducts(); // call or invoke
+
+    function addProduct() {
+        const productName = document.getElementById('productName').value;
+        console.log('Add new product', productName);
+        products.push(productName);
+        displayAllProducts();
+    }
+
+    function editProduct(index) {
+        const productName = products[index];
+        const newProduct = prompt("Nhập tên sản phẩm", productName);
+        console.log(newProduct);
+        products[index] = newProduct;
+        displayAllProducts();
+    }
+
+    function deleteProduct(index) {
+        if (confirm("Bạn có thực sự muốn xóa sản phẩm này?")) {
+            products.splice(index, 1);
+            displayAllProducts();
+        }
+    }
+</script>
+</body>
+</html>
