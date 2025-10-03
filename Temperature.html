@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    class Temperature{
+        constructor(Celsious) {
+            if (Celsious < -273) {
+                alert("Lỗi!! Nhiệt dộ khng thể nhỏ hơn 273 :) vui lòng nhập lại nhiệt độ")
+            }
+this.Celsious = Celsious;
+        }
+      toFahrenheit() {
+            return this.Celsious*9/5 +32;
+      }
+      toKelvin(){
+            return this.Celsious + 273.15;
+      }
+    }
+    let t = new Temperature(parseInt(prompt("Vui lòng nhập nhiệt độ")));
+    document.write("Nhiệt độ C:" + t.Celsious + "°C<br>")
+    document.write("Đổi sang độ F:" + t.toFahrenheit() + "°F<br>")
+    document.write("Đổi sang độ K:" + t.toKelvin() + "°K<br>")
+</script>
+</body>
+</html>
