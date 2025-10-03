@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="400" style="border:1px solid black;"></canvas>
+
+<script>
+    class Rectangle {
+        constructor(length, width) {
+            this.length = length; // chiều dài
+            this.width = width;   // chiều rộng
+        }
+
+        // Tính diện tích
+        getArea() {
+            return this.length * this.width;
+        }
+        getPerimeter() {
+            return 2 * (this.length + this.width);
+        }
+        draw(x, y, color = "blue") {
+            let ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, this.length, this.width);
+        }
+    }
+
+    // --- Sử dụng class Rectangle ---
+    let rect = new Rectangle(150, 100);
+
+    document.write("Chiều dài: " + rect.length + "<br>");
+    document.write("Chiều rộng: " + rect.width + "<br>");
+    document.write("Diện tích: " + rect.getArea() + "<br>");
+    document.write("Chu vi: " + rect.getPerimeter() + "<br>");
+    rect.draw(50, 50, "green");
+</script>
+</body>
+</html>
