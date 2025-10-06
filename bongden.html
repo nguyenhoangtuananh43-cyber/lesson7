@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Kết quả mô phỏng:</h2>
+<div id="result"></div>
+
+<script>
+ 
+    class ElectricLamp {
+        constructor() {
+            this.status = false; // false = tắt
+        }
+
+        turnOn() {
+            this.status = true;
+        }
+
+        turnOff() {
+            this.status = false;
+        }
+
+        getStatus() {
+            return this.status ? "💡 Đèn đang sáng" : "💤 Đèn đang tắt";
+        }
+    }
+
+
+    class SwitchButton {
+        constructor() {
+            this.status = false;
+            this.lamp = null;
+        }
+
+        connectToLamp(lamp) {
+            this.lamp = lamp;
+        }
+
+        switchOn() {
+            if (this.lamp) {
+                this.status = true;
+                this.lamp.turnOn();
+            }
+        }
+
+        switchOff() {
+            if (this.lamp) {
+                this.status = false;
+                this.lamp.turnOff();
+            }
+        }
+    }
+
+    // --- Kịch bản chương trình ---
+    const lamp = new ElectricLamp();
+    const button = new SwitchButton();
+
+    button.connectToLamp(lamp);
+
+    let output = "";
+
+    // Bật / tắt 10 lần
+    for (let i = 1; i <= 10; i++) {
+        if (i % 2 === 1) {
+            button.switchOn();
+        } else {
+            button.switchOff();
+        }
+        output += `Lần ${i}: ${lamp.getStatus()} <br>`;
+    }
+
+    document.getElementById("result").innerHTML = output;
+</script>
+</body>
+</html>
