@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tile</title>
+</head>
+<style>
+    #board {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        border: 2px solid black;
+    }
+    .cell {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #ccc;
+        text-align: center;
+        line-height: 20px;
+    }
+</style>
+<body>
+
+<div id="status">Lượt: X</div>
+<div id="board"></div>
+<div id="controls">
+    <button id="resetBtn">Reset</button>
+</div>
+
+<script>
+
+    const boardSize = 20;
+    const cellSize = 20;
+    const board = document.getElementById("board");
+    const statusEl = document.getElementById("status");
+    let arr = new Array(boardSize);
+    for (let i = 0; i < boardSize; i++) {
+        arr[i] = new Array(boardSize);
+    }
+
+    for (let i = 0; i < boardSize; i++) {
+        for (let j = 0; j < boardSize; j++) {
+            arr[i][j] = "";
+            const cell = document.createElement("div");
+            cell.className = "cell";
+            cell.style.left = (j * cellSize) + "px";  // vị trí ngang (cột)
+            cell.style.top  = (i * cellSize) + "px";  // vị trí dọc (dòng)
+            cell.id = `${i}-${j}`;
+            cell.addEventListener("click", handleClick);
+            board.appendChild(cell);
+        }
+    }
+
+
+    let currentPlayer = "X";   // X đánh trước
+    statusEl.innerText = "Lượt: " + currentPlayer;
+
+
+    function handleClick(event) {
+        const [row, col] = event.target.id.split("-").map(Number);
+
+
+        if (arr[row][col] !== "") return;
+
+
+        arr[row][col] = currentPlayer;
+        event.target.innerText = currentPlayer;
+
+
+        if (checkWin(row, col, currentPlayer)) {
+            alert("Người chơi " + currentPlayer + " thắng!");
+            board.style.pointerEvents = "none"; // khóa bàn
+            return;
+        }
+
+
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+        statusEl.innerText = "Lượt: " + currentPlayer;
+    }
+
+
+    function checkWin(row, col, player) {
+        return (
+            countCells(row, col, 0, 1, player) + countCells(row, col, 0, -1, player) >= 4 || // ngang
+            countCells(row, col, 1, 0, player) + countCells(row, col, -1, 0, player) >= 4 || // dọc
+            countCells(row, col, 1, 1, player) + countCells(row, col, -1, -1, player) >= 4 || // chéo chính
+            countCells(row, col, 1, -1, player) + countCells(row, col, -1, 1, player) >= 4    // chéo phụ
+        );
+    }
+
+
+    function countCells(row, col, rowDir, colDir, player) {
+        let count = 0;
+        for (let k = 1; k <= 4; k++) {
+            const r = row + rowDir * k;
+            const c = col + colDir * k;
+            if (r < 0 || c < 0 || r >= boardSize || c >= boardSize) break;
+            if (arr[r][c] === player) count++;
+            else break;
+        }
+        return count;
+    }
+
+
+    document.getElementById("resetBtn").addEventListener("click", resetBoard);
+    function resetBoard() {
+        // reset mảng & DOM
+        for (let i = 0; i < boardSize; i++) {
+            for (let j = 0; j < boardSize; j++) {
+                arr[i][j] = "";
+                const cell = document.getElementById(`${i}-${j}`);
+                if (cell) cell.innerText = "";
+            }
+        }
+        currentPlayer = "X";
+        statusEl.innerText = "Lượt: " + currentPlayer;
+        board.style.pointerEvents = "auto";
+    }
+</script>
+</body>
+</html>
